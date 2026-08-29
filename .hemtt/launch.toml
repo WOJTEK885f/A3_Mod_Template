@@ -1,0 +1,40 @@
+[default]
+workshop = [
+    "450814997",  # CBA_A3
+    "463939057",  # ace
+    "3499977893"  # Advanced Developer Tools
+    "1751569185", # Pythia
+    "1387934106", # 7erra's Editing Extensions
+    "2073243184", # 3Den Stringtable Viewer
+    "623475643",  # 3DEN Enhanced
+    "1779063631", # Zeus Enhanced
+    "2791403093", # Better Inventory
+]
+presets = []
+dlc = []
+optionals = []
+parameters = []
+
+[rhs]
+extends = "default"
+workshop = [
+    "843577117", # RHSUSAF
+    "843425103", # RHSAFRF
+    "843593391", # RHSGREF
+    "843632231", # RHSSAF
+]
+
+[cup]
+extends = "default"
+workshop = [
+    "497660133", # CUP Weapons
+    "497661914", # CUP Units
+    "541888371", # CUP Vehicles
+    "843632231", # RHSSAF
+]
+
+[cfp]
+extends = "cup"
+workshop = [
+    "1369691841", # CFP
+]

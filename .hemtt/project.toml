@@ -1,0 +1,22 @@
+name = "TMP_MOD_NAME"
+author = "TMP_MOD_AUTHOR"
+prefix = "TMP_MOD_PREFIX"
+mainprefix = "z"
+
+[version]
+path = "addons/main/script_version.hpp"
+git_hash = 0
+
+[files]
+include = [
+    "mod.cpp",
+    "meta.cpp",
+    "logo_TMP_MOD_PREFIX_ca.paa",
+    "logo_TMP_MOD_PREFIX_over_ca.paa",
+    "LICENSE.md",
+    "README.md",
+]
+exclude = []
+
+[properties]
+author = "TMP_MOD_AUTHOR"
