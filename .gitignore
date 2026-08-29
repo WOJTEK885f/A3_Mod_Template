@@ -1,69 +1,27 @@
-# Prerequisites
-*.d
+# HEMTT
+hemtt/
+hemtt.exe
+.hemtt/missions/~*
+.hemttout/
+releases/
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+# Arma
+*.pbo
+*.sqfc
 
-# Precompiled Headers
-*.gch
-*.pch
+# Tools
+__pycache__
+tools/output
+.idea
+.venv
 
-# Linker files
-*.ilk
+# Keys
+.hemttprivatekey
+*.biprivatekey
 
-# Debugger Files
-*.pdb
-
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
-*.so.*
-
-
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
-
-# Build directories
-build/
-Build/
-build-*/
-
-# CMake generated files
-CMakeFiles/
-CMakeCache.txt
-cmake_install.cmake
-Makefile
-install_manifest.txt
-compile_commands.json
-
-# Temporary files
-*.tmp
-*.log
-*.bak
-*.swp
-
-# vcpkg
-vcpkg_installed/
-
-# debug information files
-*.dwo
-
-# test output & cache
-Testing/
-.cache/
+# Compressed Files
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
