@@ -16,6 +16,7 @@
         "*.hpp": "arma-config",
         "*.inc": "arma-config",
         "*.cfg": "arma-config",
-        "*.rvmat": "arma-config"
+        "*.rvmat": "arma-config",
+        "*.rhai": "rust"
     }
 }
