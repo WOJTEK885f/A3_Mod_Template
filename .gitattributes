@@ -1,0 +1,17 @@
+# Default line ending behavior (prevents Windows/Linux conflicts)
+* text=auto
+
+# Graphic and audio files
+*.paa binary
+*.png binary
+*.jpg binary
+*.ogg binary
+*.wss binary
+
+# Change GitHub language categorization
+addons/**/*.cpp linguist-language=SQF
+addons/**/*.hpp linguist-language=SQF
+*.rhai text diff=rust linguist-language=rust
+
+# Do not count HEMTT includes in GitHub language statistics
+include/** linguist-vendored
