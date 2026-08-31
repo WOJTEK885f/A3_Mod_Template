@@ -1,4 +1,4 @@
-# <MOD_NAME>
+# TMP_MOD_TITLE
 
 **Version: 0.0.0**
 

@@ -10,13 +10,15 @@ The template uses placeholder values that must be renamed for your own mod. Repl
 
 | Placeholder       | Where                                             |
 | ----------------- | ------------------------------------------------- |
-| `TMP_MOD_NAME`    | `.hemtt/project.toml` (`name`)                    |
-| `TMP_MOD_AUTHOR`  | `.hemtt/project.toml` (`author`, `[properties]`)  |
+| `TMP_MOD_NAME`    | `.hemtt/project.toml` (`name`), generated archive name |
+| `TMP_MOD_TITLE`   | `README.md` title, `mod.cpp` (`name`/`description`/`tooltip`), `addons/main/script_mod.hpp` |
+| `TMP_MOD_AUTHOR`  | `.hemtt/project.toml` (`author`, `[properties]`), `mod.cpp` `action` URL |
+| `TMP_MOD_REPO`    | `mod.cpp` `action` URL, `addons/main/stringtable.xml` URL |
 | `TMP_MOD_PREFIX`  | `.hemtt/project.toml` (`prefix`), addon names, logos |
 
 Concretely:
 
-1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`.
+1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`. The mod's display title (`TMP_MOD_TITLE`, e.g. in `README.md` and `mod.cpp`) and GitHub repo URL (from `TMP_MOD_AUTHOR`/`TMP_MOD_REPO`) should be set to your own values.
 2. Rename the logo files to match your prefix (e.g. `logo_<prefix>_ca.paa`, `logo_<prefix>_over_ca.paa`).
 3. Create your addons under `addons/` (e.g. `addons/<prefix>_main`). The `mainprefix = "z"` should match each addon's `$PBOPREFIX$` (`z\<prefix>\addons\<addon>`).
 4. Add a `LICENSE.md` for your project.
