@@ -1,21 +1,24 @@
 #!/usr/bin/env python3
+"""
+STRINGTABLE VALIDATOR
+Author: mharis001
+Modified by: WOJTEK885f
+  - Reads the project prefix from .hemtt/project.toml instead of being
+    hardcoded to a specific mod.
+  - Removed the leftover ACE-specific STR_ACE_ key skip.
+Description:
+  Verifies all stringtable.xml files in the project. Checks for:
+    - proper XML tree structure.
+    - English as first translation.
+    - no Original translation.
+    - duplicated entries and languages.
+"""
 
 import fnmatch
 import os
 import sys
 import xml.etree.ElementTree as ET
 from logger import get_prefix
-
-# STRINGTABLE VALIDATOR
-# Author: mharis001
-# ---------------------
-# Verifies all stringtable.xml files in the project. Checks for:
-#   - proper XML tree structure.
-#   - English as first translation.
-#   - no Original translation.
-#   - duplicated entries and languages.
-# Adapted for this template to read its project name from .hemtt/project.toml
-# instead of being hardcoded to a specific mod.
 
 
 def check_stringtable(filepath, project_name):

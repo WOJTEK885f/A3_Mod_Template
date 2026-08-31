@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
 Author: thojkooi
+Modified by: WOJTEK885f
+  - Fixed a crash when a curly-brace imbalance was detected.
+  - Corrected the "round bracket" error message wording.
+  - Removed dead pushClosing/popClosing stubs.
 Description:
   Modified from https://github.com/acemod/ACE3/blob/master/tools/config_style_checker.py
   Validates that cpp, hpp, rvmat, and cfg files match the style guide.

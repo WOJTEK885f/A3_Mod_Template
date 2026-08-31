@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
 Author: DartRuffian
+Modified by: WOJTEK885f
+  - Refactored to use shared get_prefix()/project_root() helpers from logger
+    instead of inlining the prefix lookup.
 Description:
   Creates a release; by default, bumps the minor version number and resets patch number.
   Use --major bumps major number and resets minor/patch numbers.

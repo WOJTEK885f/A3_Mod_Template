@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
 Author: DartRuffian
+Modified by: WOJTEK885f
+  - Added shared get_prefix()/get_project_name()/project_root() helpers
+    so tools read the prefix from .hemtt/project.toml instead of being
+    hardcoded to a specific mod.
 Description:
   Handles writing log messages with colored text for different log levels.
   Also provides shared helpers for reading the project's prefix from
