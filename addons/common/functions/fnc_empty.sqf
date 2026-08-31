@@ -16,6 +16,6 @@
  */
 params [""];
 
-TRACE_1("fnc_empty", _this);
+TRACE_1("fnc_empty",_this);
 
 0
