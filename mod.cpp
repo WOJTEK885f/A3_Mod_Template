@@ -1,0 +1,13 @@
+author = "TMP_MOD_AUTHOR";
+name = "TMP_MOD_TITLE";
+description = "TMP_MOD_TITLE - Version 0.0.0";
+overview = "";
+overviewPicture = "logo_TMP_MOD_PREFIX_ca.paa";
+picture = "logo_TMP_MOD_PREFIX_ca.paa";
+logo = "logo_TMP_MOD_PREFIX_ca.paa";
+logoOver = "logo_TMP_MOD_PREFIX_ca.paa";
+logoSmall = "logo_TMP_MOD_PREFIX_ca.paa";
+tooltip = "TMP_MOD_TITLE";
+tooltipOwned = "TMP_MOD_TITLE Owned";
+actionName = "GitHub";
+action = "https://github.com/TMP_MOD_AUTHOR/TMP_MOD_REPO";
