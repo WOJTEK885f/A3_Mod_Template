@@ -61,7 +61,7 @@ The SQF and stringtable *usage* lints are handled natively by HEMTT (`lints.toml
 
 ## Versioning
 
-Versions are managed in `addons/main/script_version.hpp` via `.hemtt/scripts/update_*.rhai`. The README is promoted from `docs/` to the repo root on every release, so the root `README.md` reflects the latest released version while `docs/README.md` remains the maintained copy.
+Versions are managed in `addons/main/script_version.hpp` via `.hemtt/scripts/update_*.rhai`. The README is promoted from `docs/` to the repo root on every release, so the root `README.md` reflects the latest released version while `docs/README.md` remains the maintained copy. A post-release hook renames the output archive (`releases/<prefix>-latest.zip`) to `<name>_v<version>.zip` (e.g. `TMP_MOD_NAME_v0.0.0.zip`).
 
 ## License
 
