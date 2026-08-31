@@ -1,86 +1,172 @@
 #!/usr/bin/env python3
 """
-Author: DartRuffian
-Modified by: WOJTEK885f
-  - Refactored to use shared get_prefix()/project_root() helpers from logger
-    instead of inlining the prefix lookup.
-Description:
-  Creates a release; by default, bumps the minor version number and resets patch number.
-  Use --major bumps major number and resets minor/patch numbers.
-  Use --patch only bumps patch number.
+Author: WOJTEK885
+
+Creates a release by orchestrating the HEMTT toolchain. By default bumps the
+minor version and resets the patch number. Flags allow bumping the major or
+patch numbers instead, or skipping the bump / the release entirely.
 """
 
+import argparse
 import os
 import subprocess
 import sys
-import logger
-import config_style_checker
-from logger import get_prefix, project_root
+from pathlib import Path
+
+from logger import ProjectConfig, logger
+
+_SKIP_FLAG_QC = "skipwhenmissingdependencies = 1"
+_LOADORDER_ANCHOR = "_loadorder"
 
 
-def write_loadorder(prefix: str) -> int:
-    """Write loadorder requiredAddons, so other addons can just use that as a requirement to load after all other addons. Does not cover subaddons. Returns number of addons included in loadorder"""
-    addons: list[str] = []
-    for folder in os.listdir("./addons"):
-        # Shouldn't ever be loose files in addons folder
-        if os.path.isfile(folder):
-            continue
+class ReleaseTool:
+    """Orchestrates the steps required to produce and verify a release."""
 
-        content = ""
-        with open(f"./addons/{folder}/config.cpp", "r") as f:
-            content = f.read().lower()
+    def __init__(self, config: ProjectConfig) -> None:
+        self.config = config
+        self.root = config.root
 
-        # Skip loadorder addon itself, or if addon is set to skip, or if it requires the loadorder itself
-        if folder.lower() == "loadorder" or content.find("skipwhenmissingdependencies = 1") != -1 or content.find(f"{prefix}_loadorder") != -1:
-            continue
+    def _run(self, args: list[str], *, check: bool = False) -> subprocess.CompletedProcess:
+        return subprocess.run(args, cwd=self.root, check=check)
 
-        addons.append(folder)
+    def bump_version(self, kind: str, skip: bool) -> bool:
+        """Run the HEMTT script that updates the selected version component."""
+        if skip:
+            logger.warning("Skipping version bump (--skip-bump)")
+            return True
+        logger.info(f"Bumping {kind} version")
+        script = {
+            "major": "update_major.rhai",
+            "minor": "update_minor.rhai",
+            "patch": "update_patch.rhai",
+        }[kind]
+        result = self._run(["hemtt", "script", script])
+        return result.returncode == 0
 
-    if addons:
-        with open("./addons/loadorder/addons.hpp", "w") as f:
-            for addon in addons:
-                f.write(f'"{prefix}_{addon}",\n')
-    else:
-        logger.log(logger.LogLevel.WARN, "No addons found for loadorder!")
+    def collect_addons(self, prefix: str) -> list[str]:
+        """Return addons eligible for the loadorder, in directory order."""
+        addons_dir = self.root / "addons"
+        addons: list[str] = []
+        if not addons_dir.is_dir():
+            return addons
 
-    return len(addons)
+        for folder in sorted(os.listdir(addons_dir)):
+            addon_dir = addons_dir / folder
+            if not addon_dir.is_dir():
+                continue
+            if folder.lower() == "loadorder":
+                continue
+
+            config_path = addon_dir / "config.cpp"
+            content = ""
+            if config_path.exists():
+                with open(config_path, "r", encoding="utf-8", errors="ignore") as fh:
+                    content = fh.read().lower()
+
+            if _SKIP_FLAG_QC in content:
+                continue
+            if f"{prefix}{_LOADORDER_ANCHOR}" in content:
+                continue
+            addons.append(folder)
+
+        return addons
+
+    def write_loadorder(self, prefix: str, addons: list[str]) -> int:
+        """Write the loadorder addons.hpp. Returns the number of addons written."""
+        loadorder_dir = self.root / "addons" / "loadorder"
+        if not addons:
+            logger.warning("No addons found for loadorder!")
+            return 0
+        if not loadorder_dir.is_dir():
+            logger.warning("No loadorder addon found, skipping")
+            return 0
+
+        lines = [f'"{prefix}_{addon}",\n' for addon in addons]
+        with open(loadorder_dir / "addons.hpp", "w", encoding="utf-8") as fh:
+            fh.writelines(lines)
+        return len(addons)
+
+    def sort_loadorder(self) -> None:
+        """Sort the loadorder via HEMTT's link subcommand."""
+        logger.info("Sorting loadorder")
+        self._run(["hemtt", "ln", "sort"])
+
+    def run_config_style_check(self) -> int:
+        """Run the separate config style checker process; returns its error count."""
+        logger.info("Validating config style")
+        script = self.root / "tools" / "config_style_checker.py"
+        result = self._run([sys.executable, str(script)])
+        return result.returncode
+
+    def release(self, skip: bool) -> bool:
+        """Run the HEMTT release build."""
+        if skip:
+            logger.warning("Skipping release build (--skip-release)")
+            return True
+        logger.info("Running hemtt release")
+        result = self._run(["hemtt", "release"])
+        return result.returncode == 0
 
 
-def main() -> None:
-    os.chdir(project_root())
-
-    prefix = get_prefix()
-    logger.log(logger.LogLevel.INFO, f"Main Prefix: '{prefix}'")
-
-    if not "--skip-bump" in sys.argv:
-        logger.log(logger.LogLevel.INFO, "Bumping version")
-
-        bump_script = "minor"
-        if "--major" in sys.argv:
-            bump_script = "major"
-        elif "--patch" in sys.argv:
-            bump_script = "patch"
-        subprocess.run(["hemtt", "script", f"update_{bump_script}.rhai"])
-
-    logger.log(logger.LogLevel.INFO, "Writing loadorder requiredAddons")
-    if (os.path.isdir("addons/loadorder")):
-        addon_count = write_loadorder(prefix)
-        logger.log(logger.LogLevel.INFO,
-                f"Wrote {addon_count} addons to addons/loadorder/addons.hpp")
-    else:
-        logger.log(logger.LogLevel.WARN, "No loadorder addon found, skipping")
-
-    subprocess.run(["hemtt", "ln", "sort"])
-
-    error_count = config_style_checker.main()
-    if error_count > 0:
-        logger.log(logger.LogLevel.ERROR,
-                   f"{error_count} errors detected and must be fixed")
-        return
-
-    if not "--skip-release" in sys.argv:
-        subprocess.run(["hemtt", "release"])
+def parse_args(argv: list[str]) -> argparse.Namespace:
+    parser = argparse.ArgumentParser(description="Create a release for the mod.")
+    parser.add_argument(
+        "--major",
+        action="store_true",
+        help="Bump the major version and reset minor/patch.",
+    )
+    parser.add_argument(
+        "--patch",
+        action="store_true",
+        help="Bump only the patch version.",
+    )
+    parser.add_argument(
+        "--skip-bump",
+        action="store_true",
+        help="Do not bump the version.",
+    )
+    parser.add_argument(
+        "--skip-release",
+        action="store_true",
+        help="Do not run the HEMTT release build.",
+    )
+    return parser.parse_args(argv)
 
 
-if (__name__ == "__main__"):
-    main()
+def main(argv: list[str] | None = None) -> int:
+    args = parse_args(argv if argv is not None else sys.argv[1:])
+
+    try:
+        config = ProjectConfig.discover()
+    except FileNotFoundError as exc:
+        logger.error(str(exc))
+        return 1
+
+    tool = ReleaseTool(config)
+    logger.info(f"Project: '{config.name}'")
+    logger.info(f"Main Prefix: '{config.prefix}'")
+
+    bump_kind = "major" if args.major else "patch" if args.patch else "minor"
+    if not tool.bump_version(bump_kind, args.skip_bump):
+        logger.error("Version bump failed.")
+        return 1
+
+    addons = tool.collect_addons(config.prefix)
+    count = tool.write_loadorder(config.prefix, addons)
+    logger.info(f"Wrote {count} addons to addons/loadorder/addons.hpp")
+
+    tool.sort_loadorder()
+
+    if tool.run_config_style_check() != 0:
+        logger.error("Config validation FAILED; fix the errors and try again.")
+        return 1
+
+    if not tool.release(args.skip_release):
+        logger.error("HEMTT release failed.")
+        return 1
+
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

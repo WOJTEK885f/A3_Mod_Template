@@ -1,51 +1,120 @@
 #!/usr/bin/env python3
 """
-Author: DartRuffian
-Modified by: WOJTEK885f
-  - Added shared get_prefix()/get_project_name()/project_root() helpers
-    so tools read the prefix from .hemtt/project.toml instead of being
-    hardcoded to a specific mod.
-Description:
-  Handles writing log messages with colored text for different log levels.
-  Also provides shared helpers for reading the project's prefix from
-  .hemtt/project.toml so tools are not hardcoded to a specific mod.
+Author: WOJTEK885
+
+Provides a colored console logger and a small ProjectConfig reader so that
+tooling can discover project metadata (name, prefix) from .hemtt/project.toml
+without being hardcoded to a specific mod.
 """
 
-import os
+import logging
+import sys
 import tomllib
-from enum import Enum
+from dataclasses import dataclass
+from enum import IntEnum
+from pathlib import Path
+
+_COLORS = {
+    "INFO": "\033[32m",
+    "WARNING": "\033[33m",
+    "ERROR": "\033[31m",
+}
+_RESET = "\033[0m"
 
 
-class LogLevel(Enum):
-    INFO = "[32m INFO"
-    WARN = "[33m WARN"
-    ERROR = "[31mERROR"
+class _ColoredFormatter(logging.Formatter):
+    """Formats log records with ANSI colors matching the severity level."""
+
+    def format(self, record: logging.LogRecord) -> str:
+        prefix = _COLORS.get(record.levelname, "")
+        message = super().format(record)
+        return f"{prefix}{message}{_RESET}"
+
+
+def setup_logger(name: str = "template") -> logging.Logger:
+    """Configures and returns the shared project logger with colored output."""
+    logger = logging.getLogger(name)
+    if not logger.handlers:
+        handler = logging.StreamHandler(sys.stdout)
+        handler.setFormatter(_ColoredFormatter("[%(levelname)s] %(message)s"))
+        logger.addHandler(handler)
+        logger.setLevel(logging.INFO)
+    return logger
+
+
+logger = setup_logger()
+
+
+class LogLevel(IntEnum):
+    """Log levels compatible with the logging module (compat for ACE3 tools)."""
+
+    INFO = logging.INFO
+    WARN = logging.WARNING
+    ERROR = logging.ERROR
+
+
+@dataclass(frozen=True)
+class ProjectConfig:
+    """Metadata read from the project's .hemtt/project.toml file."""
+
+    name: str
+    prefix: str
+    root: Path
+    author: str
+
+    @classmethod
+    def discover(cls, start: Path | None = None) -> "ProjectConfig":
+        """Locate .hemtt/project.toml by walking up from the given directory.
+
+        Searches from `start` (defaults to the current working directory)
+        towards the filesystem root so tools work from the project root, the
+        tools/ directory, or any subdirectory.
+        """
+        current = Path(start or Path.cwd()).resolve()
+        for directory in [current] + list(current.parents):
+            project_file = directory / ".hemtt" / "project.toml"
+            if project_file.exists():
+                return cls.from_file(project_file)
+        raise FileNotFoundError(
+            "Could not locate .hemtt/project.toml in this directory or any parent."
+        )
+
+    @classmethod
+    def from_file(cls, project_file: Path) -> "ProjectConfig":
+        """Read project metadata from an existing .hemtt/project.toml."""
+        with open(project_file, "rb") as fh:
+            data = tomllib.load(fh)
+        return cls(
+            name=data["name"],
+            prefix=data["prefix"],
+            root=project_file.parent.parent,
+            author=data.get("author", ""),
+        )
+
+
+def _config() -> ProjectConfig:
+    cached = getattr(_config, "_cached", None)
+    if cached is None:
+        cached = ProjectConfig.discover()
+        _config._cached = cached
+    return cached
 
 
 def log(level: LogLevel, message: str) -> None:
-    """Logs a message to stdout with the given level"""
-    print(f"\033{level.value}\033[0m {message}")
+    """Log a message at the given severity."""
+    logger.log(level.value, message)
 
 
 def project_root() -> str:
-    """Return the repository root, allowing tools to run from root or from tools/"""
-    cwd = os.getcwd()
-    if os.path.basename(cwd) == "tools" and os.path.exists("../.hemtt/project.toml"):
-        return os.path.abspath(os.path.join(cwd, ".."))
-    return cwd
+    """Return the repository root."""
+    return str(_config().root)
 
 
 def get_prefix() -> str:
-    """Read the main prefix from .hemtt/project.toml"""
-    root = project_root()
-    with open(os.path.join(root, ".hemtt", "project.toml"), "rb") as f:
-        data = tomllib.load(f)
-    return data["prefix"]
+    """Read the main prefix from .hemtt/project.toml."""
+    return _config().prefix
 
 
 def get_project_name() -> str:
-    """Read the project name from .hemtt/project.toml"""
-    root = project_root()
-    with open(os.path.join(root, ".hemtt", "project.toml"), "rb") as f:
-        data = tomllib.load(f)
-    return data["name"]
+    """Read the project name from .hemtt/project.toml."""
+    return _config().name
