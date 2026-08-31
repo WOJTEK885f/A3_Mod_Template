@@ -20,8 +20,15 @@ Concretely:
 
 1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`. The mod's display title (`TMP_MOD_TITLE`, e.g. in `README.md` and `mod.cpp`) and GitHub repo URL (from `TMP_MOD_AUTHOR`/`TMP_MOD_REPO`) should be set to your own values.
 2. Rename the logo files to match your prefix (e.g. `logo_<prefix>_ca.paa`, `logo_<prefix>_over_ca.paa`).
-3. Create your addons under `addons/` (e.g. `addons/<prefix>_main`). The `mainprefix = "z"` should match each addon's `$PBOPREFIX$` (`z\<prefix>\addons\<addon>`).
+3. Create your addons under `addons/` (e.g. `addons/<prefix>_main`). The `mainprefix = "z"` should match each addon's `$PBOPREFIX$` (`z\<prefix>\addons\<addon>`). Per-addon `README.md` files are optional and not required by the build.
 4. Add a `LICENSE.md` for your project.
+
+Files referenced but **not shipped** by the template are author-supplied and expected to be created for your mod:
+
+- `meta.cpp` — referenced by `.hemtt/project.toml` (`[files] include`).
+- `logo_TMP_MOD_PREFIX_ca.paa` and `logo_TMP_MOD_PREFIX_over_ca.paa` — referenced by `.hemtt/project.toml` and `mod.cpp`.
+
+The user-facing `README.md` also uses self-explanatory `<...>` placeholders alongside the `TMP_MOD_*` tokens (e.g. `<One-liner>`, `<Feature>`, `<How to ...>`) that you should fill in with your own content.
 
 ## Project Structure
 
