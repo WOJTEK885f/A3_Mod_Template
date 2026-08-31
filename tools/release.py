@@ -10,9 +10,9 @@ Description:
 import os
 import subprocess
 import sys
-import tomllib
 import logger
 import config_style_checker
+from logger import get_prefix, project_root
 
 
 def write_loadorder(prefix: str) -> int:
@@ -44,13 +44,9 @@ def write_loadorder(prefix: str) -> int:
 
 
 def main() -> None:
-    if os.getcwd().endswith("tools"):
-        os.chdir("..")
+    os.chdir(project_root())
 
-    prefix = ""
-    with open(".hemtt/project.toml", "rb") as f:
-        data = tomllib.load(f)
-        prefix = data["prefix"]
+    prefix = get_prefix()
     logger.log(logger.LogLevel.INFO, f"Main Prefix: '{prefix}'")
 
     if not "--skip-bump" in sys.argv:

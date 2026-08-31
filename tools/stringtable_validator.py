@@ -4,6 +4,7 @@ import fnmatch
 import os
 import sys
 import xml.etree.ElementTree as ET
+from logger import get_prefix
 
 # STRINGTABLE VALIDATOR
 # Author: mharis001
@@ -13,14 +14,11 @@ import xml.etree.ElementTree as ET
 #   - English as first translation.
 #   - no Original translation.
 #   - duplicated entries and languages.
+# Adapted for this template to read its project name from .hemtt/project.toml
+# instead of being hardcoded to a specific mod.
 
 
-######## GLOBALS #########
-PROJECT_NAME = "IBC"
-##########################
-
-
-def check_stringtable(filepath):
+def check_stringtable(filepath, project_name):
     try:
         tree = ET.parse(filepath)
     except Exception as e:
@@ -36,8 +34,8 @@ def check_stringtable(filepath):
         print("  ERROR: Invalid root tag '{}' found, must be 'Project'.".format(root.tag))
         errors += 1
 
-    if root.get("name") != PROJECT_NAME:
-        print("  ERROR: Invalid name attribute '{}' for Project tag, must be '{}'.".format(root.get("name"), PROJECT_NAME))
+    if root.get("name") != project_name:
+        print("  ERROR: Invalid name attribute '{}' for Project tag, must be '{}'.".format(root.get("name"), project_name))
         errors += 1
 
     # Verify that the root has a Package tag and its name attribute matches the component's folder name
@@ -64,14 +62,10 @@ def check_stringtable(filepath):
             keys.extend(container.findall("Key"))
 
         key_ids = []
-        key_prefix = "STR_{}_{}_".format(PROJECT_NAME, package_name)
+        key_prefix = "STR_{}_{}_".format(project_name, package_name)
 
         for key in keys:
             key_id = key.get("ID")
-
-            # Skip keys that start with "STR_ACE_"
-            if key_id.startswith("STR_ACE_"):
-                continue
 
             # Verify that the key has a valid ID attribute
             if key_id is None:
@@ -149,6 +143,8 @@ def main():
     print("Validating Stringtables")
     print("-----------------------")
 
+    project_name = get_prefix()
+
     # Allow running from root directory and tools directory
     root_dir = ".."
     if os.path.exists("addons"):
@@ -168,7 +164,7 @@ def main():
     for filepath in stringtable_files:
         print("Checking {}:".format(os.path.relpath(filepath, root_dir)))
 
-        errors = check_stringtable(filepath)
+        errors = check_stringtable(filepath, project_name)
 
         if errors != 0:
             print("Found {} error(s).".format(errors))

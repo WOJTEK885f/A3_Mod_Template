@@ -3,9 +3,9 @@
 import fnmatch
 import os
 import re
-import ntpath
 import sys
 import argparse
+import logger
 
 def validKeyWordAfterCode(content, index):
     keyWords = ["for", "do", "count", "each", "forEach", "else", "and", "not", "isEqualTo", "in", "call", "spawn", "execVM", "catch", "param", "select", "apply", "findIf", "remoteExec"];
@@ -19,12 +19,6 @@ def validKeyWordAfterCode(content, index):
 
 def check_sqf_syntax(filepath):
     bad_count_file = 0
-    def pushClosing(t):
-        closingStack.append(closing.expr)
-        closing << Literal( closingFor[t[0]] )
-
-    def popClosing():
-        closing << closingStack.pop()
 
     with open(filepath, 'r', encoding='utf-8', errors='ignore') as file:
         content = file.read()
@@ -94,14 +88,14 @@ def check_sqf_syntax(filepath):
                             brackets_list.append('(')
                         elif (c == ')'):
                             if (brackets_list[-1] in ['{', '[']):
-                                print("ERROR: Possible missing round bracket ')' detected at {0} Line number: {1}".format(filepath,lineNumber))
+                                logger.log(logger.LogLevel.ERROR, "Possible missing round bracket ')' detected at {0} Line number: {1}".format(filepath,lineNumber))
                                 bad_count_file += 1
                             brackets_list.append(')')
                         elif (c == '['):
                             brackets_list.append('[')
                         elif (c == ']'):
                             if (brackets_list[-1] in ['{', '(']):
-                                print("ERROR: Possible missing square bracket ']' detected at {0} Line number: {1}".format(filepath,lineNumber))
+                                logger.log(logger.LogLevel.ERROR, "Possible missing square bracket ']' detected at {0} Line number: {1}".format(filepath,lineNumber))
                                 bad_count_file += 1
                             brackets_list.append(']')
                         elif (c == '{'):
@@ -109,11 +103,11 @@ def check_sqf_syntax(filepath):
                         elif (c == '}'):
                             lastIsCurlyBrace = True
                             if (brackets_list[-1] in ['(', '[']):
-                                print("ERROR: Possible missing curly brace '}}' detected at {0} Line number: {1}".format(filepath,lineNumber))
+                                logger.log(logger.LogLevel.ERROR, "Possible missing curly brace '}}' detected at {0} Line number: {1}".format(filepath,lineNumber))
                                 bad_count_file += 1
                             brackets_list.append('}')
                         elif (c== '\t'):
-                            print("ERROR: Tab detected at {0} Line number: {1}".format(filepath,lineNumber))
+                            logger.log(logger.LogLevel.ERROR, "Tab detected at {0} Line number: {1}".format(filepath,lineNumber))
                             bad_count_file += 1
 
                         if (c not in [' ', '\t', '\n']):
@@ -123,7 +117,7 @@ def check_sqf_syntax(filepath):
                             if (c not in [' ', '\t', '\n', '/']): # keep reading until no white space or comments
                                 checkForSemicolon = False
                                 if (c not in [']', ')', '}', ';', ',', '&', '!', '|', '='] and not validKeyWordAfterCode(content, indexOfCharacter)): # , 'f', 'd', 'c', 'e', 'a', 'n', 'i']):
-                                    print("ERROR: Possible missing semicolon ';' detected at {0} Line number: {1}".format(filepath,lineNumber))
+                                    logger.log(logger.LogLevel.ERROR, "Possible missing semicolon ';' detected at {0} Line number: {1}".format(filepath,lineNumber))
                                     bad_count_file += 1
 
             else: # Look for the end of our comment block
@@ -137,17 +131,17 @@ def check_sqf_syntax(filepath):
             indexOfCharacter += 1
 
         if brackets_list.count('[') != brackets_list.count(']'):
-            print("ERROR: A possible missing square bracket [ or ] in file {0} [ = {1} ] = {2}".format(filepath,brackets_list.count('['),brackets_list.count(']')))
+            logger.log(logger.LogLevel.ERROR, "A possible missing square bracket [ or ] in file {0} [ = {1} ] = {2}".format(filepath,brackets_list.count('['),brackets_list.count(']')))
             bad_count_file += 1
         if brackets_list.count('(') != brackets_list.count(')'):
-            print("ERROR: A possible missing round bracket ( or ) in file {0} ( = {1} ) = {2}".format(filepath,brackets_list.count('('),brackets_list.count(')')))
+            logger.log(logger.LogLevel.ERROR, "A possible missing round bracket ( or ) in file {0} ( = {1} ) = {2}".format(filepath,brackets_list.count('('),brackets_list.count(')')))
             bad_count_file += 1
         if brackets_list.count('{') != brackets_list.count('}'):
-            print("ERROR: A possible missing curly brace {{ or }} in file {0} {{ = {1} }} = {2}".format(filepath,brackets_list.count('{'),brackets_list.count('}')))
+            logger.log(logger.LogLevel.ERROR, "A possible missing curly brace {{ or }} in file {0} {{ = {1} }} = {2}".format(filepath,brackets_list.count('{'),brackets_list.count('}')))
             bad_count_file += 1
-        pattern = re.compile('\s*(/\*[\s\S]+?\*/)\s*#include')
+        pattern = re.compile(r'\s*(/\*[\s\S]+?\*/)\s*#include')
         if pattern.match(content):
-            print("ERROR: A found #include after block comment in file {0}".format(filepath))
+            logger.log(logger.LogLevel.ERROR, "A found #include after block comment in file {0}".format(filepath))
             bad_count_file += 1
 
 
@@ -156,7 +150,7 @@ def check_sqf_syntax(filepath):
 
 def main():
 
-    print("Validating SQF")
+    logger.log(logger.LogLevel.INFO, "Validating SQF")
 
     sqf_list = []
     bad_count = 0
@@ -179,11 +173,12 @@ def main():
         bad_count = bad_count + check_sqf_syntax(filename)
 
 
-    print("------\nChecked {0} files\nErrors detected: {1}".format(len(sqf_list), bad_count))
+    logger.log(logger.LogLevel.INFO,
+                "Checked {0} files, errors detected: {1}".format(len(sqf_list), bad_count))
     if (bad_count == 0):
-        print("SQF validation PASSED")
+        logger.log(logger.LogLevel.INFO, "SQF validation PASSED")
     else:
-        print("SQF validation FAILED")
+        logger.log(logger.LogLevel.ERROR, "SQF validation FAILED")
 
     return bad_count
 

@@ -1,47 +1,51 @@
 #!/usr/bin/env python3
 # PabstMirror
 # Checks all strings are defined, run with -u to return all unused strings
+# Adapted for this template to read its prefix from .hemtt/project.toml
 
 import fnmatch
 import os
 import re
 import sys
+from logger import get_prefix
 
-def getDefinedStrings(filepath):
+def getDefinedStrings(filepath, prefix):
     # print("getDefinedStrings {0}".format(filepath))
     with open(filepath, 'r', encoding="latin-1") as file:
         content = file.read()
-        srch = re.compile(r'Key ID\=\"(STR_ACE_[_a-zA-Z0-9]*)"', re.IGNORECASE)
+        srch = re.compile(r'Key ID\="(STR_{0}_[_a-zA-Z0-9]*)"'.format(prefix), re.IGNORECASE)
         modStrings = srch.findall(content)
     modStrings = [s.lower() for s in modStrings]
     return modStrings
 
-def getStringUsage(filepath):
+def getStringUsage(filepath, prefix):
     selfmodule = (re.search(r'(addons|optionals)[\W]*([_a-zA-Z0-9]*)', filepath)).group(2)
     submodule = (re.search(rf'(addons|optionals)[\W]*{selfmodule}[\W]*([_a-zA-Z0-9]*)', filepath)).group(2)
     # print(f"Checking {filepath} from {selfmodule} ({submodule})")
     fileStrings = []
 
+    stringTag = "STR_{0}_".format(prefix)
+
     with open(filepath, 'r') as file:
         content = file.read()
 
-        srch = re.compile(r'(STR_ACE_[_a-zA-Z0-9]*)', re.IGNORECASE)
+        srch = re.compile(r'(STR_{0}_[_a-zA-Z0-9]*)'.format(prefix), re.IGNORECASE)
         fileStrings = srch.findall(content)
 
         srch = re.compile(r'[^EB_][CL]STRING\(([_a-zA-Z0-9]*)\)', re.IGNORECASE)
         modStrings = srch.findall(content)
         for localString in modStrings:
-            fileStrings.append("STR_ACE_{0}_{1}".format(selfmodule, localString))
+            fileStrings.append("{0}{1}_{2}".format(stringTag, selfmodule, localString))
 
         srch = re.compile(r'E[CL]STRING\(([_a-zA-Z0-9]*),([_a-zA-Z0-9]*)\)')
         exStrings = srch.findall(content)
         for (exModule, exString) in exStrings:
-            fileStrings.append("STR_ACE_{0}_{1}".format(exModule, exString))
+            fileStrings.append("{0}{1}_{2}".format(stringTag, exModule, exString))
 
         srch = re.compile(r'SUB[CL]STRING\(([_a-zA-Z0-9]*)\)')
         subStrings = srch.findall(content)
         for (subString) in subStrings:
-            fileStrings.append(f"STR_ACE_{submodule}_{subString}")
+            fileStrings.append(f"{stringTag}{submodule}_{subString}")
 
         srch = re.compile(r'IGNORE_STRING_WARNING\([\'"]*([_a-zA-Z0-9]*)[\'"]*\)')
         ignoreWarnings = srch.findall(content)
@@ -50,7 +54,8 @@ def getStringUsage(filepath):
     return [s for s in fileStrings if s not in (i.lower() for i in ignoreWarnings)]
 
 def main(argv):
-    print("### check_strings.py {} ###".format(argv))
+    prefix = get_prefix()
+    print("### check_strings.py {0} ###".format(argv))
     sqf_list = []
     xml_list = []
 
@@ -77,15 +82,12 @@ def main(argv):
             xml_list.append(os.path.join(root, filename))
 
     for filename in xml_list:
-        allDefinedStrings = allDefinedStrings + getDefinedStrings(filename)
+        allDefinedStrings = allDefinedStrings + getDefinedStrings(filename, prefix)
     for filename in sqf_list:
-        allUsedStrings = allUsedStrings + getStringUsage(filename)
+        allUsedStrings = allUsedStrings + getStringUsage(filename, prefix)
 
     allDefinedStrings = list(sorted(set(allDefinedStrings)))
     allUsedStrings = list(sorted(set(allUsedStrings)))
-
-    if ("str_ace_tagging_name" in allUsedStrings): allUsedStrings.remove("str_ace_tagging_name") # Handle tagging macro
-    if ("str_ace_wardrobe_var" in allUsedStrings): allUsedStrings.remove("str_ace_wardrobe_var") # Handle wardrobe macro
 
     print("-----------")
     countUnusedStrings = 0
@@ -108,4 +110,4 @@ def main(argv):
     return countUndefinedStrings
 
 if __name__ == "__main__":
-    main(sys.argv)
+    sys.exit(main(sys.argv))
