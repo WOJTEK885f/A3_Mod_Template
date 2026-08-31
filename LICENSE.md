@@ -1,6 +1,6 @@
 MIT License
 
-Copyright (c) 2026 WOJTEK885f
+Copyright (c) 2026 WOJTEK885
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -19,3 +19,16 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+# Third-party notices
+
+The MIT license above covers the original template files in this repository
+written by the copyright holder. The following files are NOT covered by the
+MIT license:
+
+- `tools/config_style_checker.py` - derived from the
+  [ACE3 project](https://github.com/acemod/ACE3) (GPLv2). Distributed here
+  under the GNU General Public License version 2.
+- `tools/stringtable_validator.py` - derived from the
+  [ACE3 project](https://github.com/acemod/ACE3) (GPLv2). Distributed here
+  under the GNU General Public License version 2.

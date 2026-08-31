@@ -2,7 +2,7 @@
 """
 STRINGTABLE VALIDATOR
 Author: mharis001
-Modified by: WOJTEK885f
+Modified by: WOJTEK885
   - Reads the project prefix from .hemtt/project.toml instead of being
     hardcoded to a specific mod.
   - Removed the leftover ACE-specific STR_ACE_ key skip.
@@ -12,6 +12,9 @@ Description:
     - English as first translation.
     - no Original translation.
     - duplicated entries and languages.
+License:
+  Licensed under the GPLv2 (GNU General Public License version 2), as
+  distributed by the ACE3 project. See https://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 """
 
 import fnmatch

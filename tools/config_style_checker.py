@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """
 Author: thojkooi
-Modified by: WOJTEK885f
+Modified by: WOJTEK885
   - Fixed a crash when a curly-brace imbalance was detected.
   - Corrected the "round bracket" error message wording.
   - Removed dead pushClosing/popClosing stubs.
 Description:
   Modified from https://github.com/acemod/ACE3/blob/master/tools/config_style_checker.py
   Validates that cpp, hpp, rvmat, and cfg files match the style guide.
+License:
+  Licensed under the GPLv2 (GNU General Public License version 2), as
+  distributed by the ACE3 project. See https://www.gnu.org/licenses/old-licenses/gpl-2.0.html.
 """
 
 import fnmatch

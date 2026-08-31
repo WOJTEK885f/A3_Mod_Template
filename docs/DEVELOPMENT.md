@@ -65,4 +65,7 @@ Versions are managed in `addons/main/script_version.hpp` via `.hemtt/scripts/upd
 
 ## License
 
-This template reuses and adapts tooling from other Arma 3 projects (ACE3, and others) which may carry their own licenses. Add a `LICENSE.md` compatible with those upstream licenses before distributing your work.
+- The template's original files are licensed under the **MIT** license — see the repo root `LICENSE.md`.
+- `tools/config_style_checker.py` and `tools/stringtable_validator.py` are derived from other projects and remain under the **GPLv2** license; they are not covered by the MIT license.
+
+When building a mod from this template, replace the `TMP_MOD_LICENSE` placeholder in `README.md` with your own mod's license (for example `APL`/`APL-SA`/`APL-ND`). The template scaffolding keeps the licenses documented above, while your addon content is licensed however you choose.

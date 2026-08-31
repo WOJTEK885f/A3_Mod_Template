@@ -25,4 +25,4 @@
 
 ## License
 
-See [LICENSE.md](LICENSE.md).
+TMP_MOD_LICENSE
