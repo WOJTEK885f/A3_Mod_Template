@@ -11,7 +11,7 @@ HEMTT_VFS.join("mod.cpp")
     .write(modcpp);
 print("mod.cpp version set to " + HEMTT.project().version());
 
-// Currently unused, but included anyway
+// Stamp the version into the build's README as well
 let readme = HEMTT_VFS.join("README.md")
     .open_file()
     .read();
