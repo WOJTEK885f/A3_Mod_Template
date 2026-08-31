@@ -8,15 +8,11 @@ patch numbers instead, or skipping the bump / the release entirely.
 """
 
 import argparse
-import os
 import subprocess
 import sys
 from pathlib import Path
 
 from logger import ProjectConfig, logger
-
-_SKIP_FLAG_QC = "skipwhenmissingdependencies = 1"
-_LOADORDER_ANCHOR = "_loadorder"
 
 
 class ReleaseTool:
@@ -42,54 +38,6 @@ class ReleaseTool:
         }[kind]
         result = self._run(["hemtt", "script", script])
         return result.returncode == 0
-
-    def collect_addons(self, prefix: str) -> list[str]:
-        """Return addons eligible for the loadorder, in directory order."""
-        addons_dir = self.root / "addons"
-        addons: list[str] = []
-        if not addons_dir.is_dir():
-            return addons
-
-        for folder in sorted(os.listdir(addons_dir)):
-            addon_dir = addons_dir / folder
-            if not addon_dir.is_dir():
-                continue
-            if folder.lower() == "loadorder":
-                continue
-
-            config_path = addon_dir / "config.cpp"
-            content = ""
-            if config_path.exists():
-                with open(config_path, "r", encoding="utf-8", errors="ignore") as fh:
-                    content = fh.read().lower()
-
-            if _SKIP_FLAG_QC in content:
-                continue
-            if f"{prefix}{_LOADORDER_ANCHOR}" in content:
-                continue
-            addons.append(folder)
-
-        return addons
-
-    def write_loadorder(self, prefix: str, addons: list[str]) -> int:
-        """Write the loadorder addons.hpp. Returns the number of addons written."""
-        loadorder_dir = self.root / "addons" / "loadorder"
-        if not addons:
-            logger.warning("No addons found for loadorder!")
-            return 0
-        if not loadorder_dir.is_dir():
-            logger.warning("No loadorder addon found, skipping")
-            return 0
-
-        lines = [f'"{prefix}_{addon}",\n' for addon in addons]
-        with open(loadorder_dir / "addons.hpp", "w", encoding="utf-8") as fh:
-            fh.writelines(lines)
-        return len(addons)
-
-    def sort_loadorder(self) -> None:
-        """Sort the loadorder via HEMTT's link subcommand."""
-        logger.info("Sorting loadorder")
-        self._run(["hemtt", "ln", "sort"])
 
     def run_config_style_check(self) -> int:
         """Run the separate config style checker process; returns its error count."""
@@ -150,12 +98,6 @@ def main(argv: list[str] | None = None) -> int:
     if not tool.bump_version(bump_kind, args.skip_bump):
         logger.error("Version bump failed.")
         return 1
-
-    addons = tool.collect_addons(config.prefix)
-    count = tool.write_loadorder(config.prefix, addons)
-    logger.info(f"Wrote {count} addons to addons/loadorder/addons.hpp")
-
-    tool.sort_loadorder()
 
     if tool.run_config_style_check() != 0:
         logger.error("Config validation FAILED; fix the errors and try again.")

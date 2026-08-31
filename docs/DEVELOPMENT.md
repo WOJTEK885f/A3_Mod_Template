@@ -46,7 +46,7 @@ Concretely:
 | `hemtt dev`             | Development build for testing.                     |
 | `hemtt release`         | Build a signed, versioned release.                 |
 | `hemtt launch`          | Launch Arma 3 with the mod and configured mods.    |
-| `python tools/release.py` | Bump version, write loadorder, validate, release. |
+| `python tools/release.py` | Bump version, validate, release. |
 
 ## Tooling
 
@@ -54,7 +54,7 @@ Concretely:
 
 - `config_style_checker.py` — validates `.cpp/.hpp/.rvmat/.cfg` style (tabs, brackets, class formatting).
 - `stringtable_validator.py` — validates `stringtable.xml` structure and style.
-- `release.py` — orchestrates a release (version bump, loadorder, validation).
+- `release.py` — orchestrates a release (version bump, validation, release).
 - `logger.py` — shared logging and project-prefix helpers used by the other tools.
 
 The SQF and stringtable *usage* lints are handled natively by HEMTT (`lints.toml`), so the tools focus on what HEMTT does not check.
