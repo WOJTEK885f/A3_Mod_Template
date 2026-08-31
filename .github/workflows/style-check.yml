@@ -20,6 +20,9 @@ jobs:
       - name: Validate config
         run: python tools/config_style_checker.py
 
+      - name: Validate stringtables
+        run: python tools/stringtable_validator.py
+
       - name: Check for BOM
         uses: arma-actions/bom-check@master
         with:
