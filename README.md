@@ -1,8 +1,10 @@
 # A3_Mod_Template by WOJTEK885
 
-Mod project template for Arma 3 using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3), matching [ACE3](https://github.com/acemod/ACE3) guidelines.
+This guide is for mod developers who build a mod from this template.
+\- Target mod README template can be found in [`docs/README.md`](./docs/README.md)
 
-This document is for mod developers who build a mod from this template. After initial setup, root `README.md` file should be replaced with `docs/README.md`. Content of the file you're reading now can be later found in `docs/TEMPLATE-GUIDE.md` or deleted if not needed.
+* After initial setup, root [`README.md`](./README.md) file should be replaced with [`docs/README.md`](./docs/README.md).
+* Content of the file you're reading now can be later found in [`docs/TEMPLATE-GUIDE.md`](docs/TEMPLATE-GUIDE.md) or deleted if not needed.
 
 ## Initial Project Setup
 
@@ -17,7 +19,7 @@ The template uses placeholders that must be renamed for your own mod. Find and r
 | `TMP_MOD_PREFIX`  | Mod's prefix      | lowercase                  | abe                         |
 | `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
 
-TODO: Everything below
+TODO: Update everything below
 Concretely:
 
 1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`. The mod's display title (`TMP_MOD_NAME`, e.g. in `README.md` and `mod.cpp`) and GitHub repo URL (from `TMP_MOD_AUTHOR`/`TMP_REPO_NAME`) should be set to your own values.
