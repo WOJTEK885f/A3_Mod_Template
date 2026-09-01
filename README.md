@@ -1,42 +1,82 @@
-<!-- markdownlint-disable MD033 -->
+# A3_Mod_Template by WOJTEK885
 
-<h1 align="center">TMP_MOD_NAME</h1>
-<p align="center">
-    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/releases/latest">
-        <img src="https://img.shields.io/badge/Version-0.0.0-blue?style=flat-square" alt="TMP_MOD_NAME Version">
-    </a>
-    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/issues">
-        <img src="https://img.shields.io/github/issues-raw/TMP_MOD_REPO_OWNER/TMP_MOD_REPO.svg?style=flat-square&label=Issues" alt="TMP_MOD_NAME Issues">
-    </a>
-    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=TMP_MOD_WORKSHOPID">
-        <img src="https://img.shields.io/steam/downloads/TMP_MOD_WORKSHOPID.svg?style=flat-square&label=Downloads" alt="TMP_MOD_NAME Downloads">
-    </a>
-    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/blob/master/LICENSE.md">
-        <img src="https://img.shields.io/badge/License-TMP_MOD_LICENSE-red?style=flat-square" alt="TMP_MOD_NAME License">
-    </a>
-    <br>
-    <img src="https://img.shields.io/github/actions/workflow/status/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/hemtt.yml?style=flat-square&label=HEMTT" alt="HEMTT check">
-    <img src="https://img.shields.io/github/actions/workflow/status/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/style-check.yml?style=flat-square&label=Validate" alt="Validate tools">
-</p>
+Mod project template for Arma 3 using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3), matching [ACE3](https://github.com/acemod/ACE3) guidelines.
 
-<p align="center">
-    <b>Requires the latest version of <a href="https://github.com/CBATeam/CBA_A3/releases/latest">CBA A3</a></b>
-</p>
+This document is for mod developers who build a mod from this template. After initial setup, root `README.md` file should be replaced with `docs/README.md`. Content of the file you're reading now can be later found in `docs/TEMPLATE-GUIDE.md` or deleted if not needed.
 
-**TMP_MOD_NAME** is ...
+## Initial Project Setup
 
-## Key Features
+The template uses placeholders that must be renamed for your own mod. Find and replace every occurrence of the following (Ctrl+Shift+F in VSCode):
 
-* **Feature:** Description
+| Placeholder       | Replace with      | Comments                   | Example                     |
+| ----------------- | ----------------- | -------------------------- | --------------------------- |
+| `TMP_MOD_NAME`    | Mod's full name   |                            | Advanced Banana Environment |
+| `TMP_MOD_AUTHOR`  | Mod's author      | you or your team           | ABE Team                    |
+| `TMP_REPO_OWNER`  | GitHub repo owner |                            | ABE Organization            |
+| `TMP_REPO_NAME`   | GitHub repo name  | no spaces, use _ or - or . | ABE3                        |
+| `TMP_MOD_PREFIX`  | Mod's prefix      | lowercase                  | abe                         |
+| `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
 
-## Documentation
+TODO: Everything below
+Concretely:
 
-* [Example](./docs/README.md) - Summary
+1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`. The mod's display title (`TMP_MOD_NAME`, e.g. in `README.md` and `mod.cpp`) and GitHub repo URL (from `TMP_MOD_AUTHOR`/`TMP_REPO_NAME`) should be set to your own values.
+2. Rename the logo files to match your prefix (e.g. `logo_<prefix>_ca.paa`, `logo_<prefix>_over_ca.paa`).
+3. Create your addons under `addons/` (e.g. `addons/<prefix>_main`). The `mainprefix = "z"` should match each addon's `$PBOPREFIX$` (`z\<prefix>\addons\<addon>`). Per-addon `README.md` files are optional and not required by the build.
+4. Add a `LICENSE.md` for your project.
 
-## Contributing
+Files referenced but **not shipped** by the template are author-supplied and expected to be created for your mod:
 
-For new contributors, see the [Contributing Setup & Guidelines](./.github/CONTRIBUTING.md).
+- `meta.cpp` — referenced by `.hemtt/project.toml` (`[files] include`).
+- `logo_TMP_MOD_PREFIX_ca.paa` and `logo_TMP_MOD_PREFIX_over_ca.paa` — referenced by `.hemtt/project.toml` and `mod.cpp`.
+
+The user-facing `README.md` also uses self-explanatory `<...>` placeholders alongside the `TMP_MOD_*` tokens (e.g. `<One-liner>`, `<Feature>`, `<How to ...>`) that you should fill in with your own content.
+
+## Project Structure
+
+```
+.
+├── .hemtt/          # HEMTT configuration, hooks, and version scripts
+│   ├── project.toml
+│   ├── lints.toml
+│   ├── launch.toml
+│   ├── hooks/       # pre_build / post_release hooks
+│   └── scripts/     # version bump scripts
+├── addons/          # Your addons (one folder per PBO)
+├── docs/            # Source-of-truth README (promoted to root on release)
+├── tools/           # Python tooling for style checks and releases
+├── mod.cpp          # Mod metadata (include via [files])
+└── README.md        # Version-stamped mirror of docs/README.md
+```
+
+## Commands
+
+| Command                 | Purpose                                            |
+| ----------------------- | -------------------------------------------------- |
+| `hemtt check`           | Validate the project for errors and lints.         |
+| `hemtt dev`             | Development build for testing.                     |
+| `hemtt release`         | Build a signed, versioned release.                 |
+| `hemtt launch`          | Launch Arma 3 with the mod and configured mods.    |
+| `python tools/release.py` | Bump version, validate, release. |
+
+## Tooling
+
+`tools/` contains Python helpers used by the project and CI:
+
+- `config_style_checker.py` — validates `.cpp/.hpp/.rvmat/.cfg` style (tabs, brackets, class formatting).
+- `stringtable_validator.py` — validates `stringtable.xml` structure and style.
+- `release.py` — orchestrates a release (version bump, validation, release).
+- `logger.py` — shared logging and project-prefix helpers used by the other tools.
+
+The SQF and stringtable *usage* lints are handled natively by HEMTT (`lints.toml`), so the tools focus on what HEMTT does not check.
+
+## Versioning
+
+Versions are managed in `addons/main/script_version.hpp` via `.hemtt/scripts/update_*.rhai`. The README is promoted from `docs/` to the repo root on every release, so the root `README.md` reflects the latest released version while `docs/README.md` remains the maintained copy. A post-release hook renames the output archive (`releases/<prefix>-latest.zip`) to `<name>_v<version>.zip` (e.g. `TMP_MOD_NAME_v0.0.0.zip`).
 
 ## License
 
-TMP_MOD_NAME is licensed under [TMP_MOD_LICENSE](./LICENSE.md).
+- The template's original files are licensed under the **MIT** license — see the repo root `LICENSE.md`.
+- `tools/config_style_checker.py` and `tools/stringtable_validator.py` are derived from other projects and remain under the **GPLv2** license; they are not covered by the MIT license.
+
+When building a mod from this template, replace the `TMP_MOD_LICENSE` placeholder in `README.md` with your own mod's license (for example `APL`/`APL-SA`/`APL-ND`). The template scaffolding keeps the licenses documented above, while your addon content is licensed however you choose.

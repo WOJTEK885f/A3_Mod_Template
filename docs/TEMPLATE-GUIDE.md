@@ -1,24 +1,26 @@
-# A3_Mod_Template — Development Guide
+# A3_Mod_Template by WOJTEK885
 
-Mod project template for Arma 3 using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3).
+Mod project template for Arma 3 using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3), matching [ACE3](https://github.com/acemod/ACE3) guidelines.
 
-This document is for mod developers who build a mod from this template. It explains the setup, structure, and tooling provided here. The user-facing `README.md` describes the finished mod and is promoted from `docs/` on release — this file is not part of the released mod.
+This document is for mod developers who build a mod from this template. After initial setup, root `README.md` file should be replaced with `docs/README.md`. Content of the file you're reading now can be later found in `docs/TEMPLATE-GUIDE.md` or deleted if not needed.
 
-## Setup
+## Initial Project Setup
 
-The template uses placeholder values that must be renamed for your own mod. Replace every occurrence of the following:
+The template uses placeholders that must be renamed for your own mod. Find and replace every occurrence of the following (Ctrl+Shift+F in VSCode):
 
-| Placeholder       | Where                                             |
-| ----------------- | ------------------------------------------------- |
-| `TMP_MOD_NAME`    | `.hemtt/project.toml` (`name`), generated archive name |
-| `TMP_MOD_TITLE`   | `README.md` title, `mod.cpp` (`name`/`description`/`tooltip`), `addons/main/script_mod.hpp` |
-| `TMP_MOD_AUTHOR`  | `.hemtt/project.toml` (`author`, `[properties]`), `mod.cpp` `action` URL |
-| `TMP_MOD_REPO`    | `mod.cpp` `action` URL, `addons/main/stringtable.xml` URL |
-| `TMP_MOD_PREFIX`  | `.hemtt/project.toml` (`prefix`), addon names, logos |
+| Placeholder       | Replace with      | Comments                   | Example                     |
+| ----------------- | ----------------- | -------------------------- | --------------------------- |
+| `TMP_MOD_NAME`    | Mod's full name   |                            | Advanced Banana Environment |
+| `TMP_MOD_AUTHOR`  | Mod's author      | you or your team           | ABE Team                    |
+| `TMP_REPO_OWNER`  | GitHub repo owner |                            | ABE Organization            |
+| `TMP_REPO_NAME`   | GitHub repo name  | no spaces, use _ or - or . | ABE3                        |
+| `TMP_MOD_PREFIX`  | Mod's prefix      | lowercase                  | abe                         |
+| `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
 
+TODO: Everything below
 Concretely:
 
-1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`. The mod's display title (`TMP_MOD_TITLE`, e.g. in `README.md` and `mod.cpp`) and GitHub repo URL (from `TMP_MOD_AUTHOR`/`TMP_MOD_REPO`) should be set to your own values.
+1. Open `.hemtt/project.toml` and set `name`, `author`, and `prefix`. The mod's display title (`TMP_MOD_NAME`, e.g. in `README.md` and `mod.cpp`) and GitHub repo URL (from `TMP_MOD_AUTHOR`/`TMP_REPO_NAME`) should be set to your own values.
 2. Rename the logo files to match your prefix (e.g. `logo_<prefix>_ca.paa`, `logo_<prefix>_over_ca.paa`).
 3. Create your addons under `addons/` (e.g. `addons/<prefix>_main`). The `mainprefix = "z"` should match each addon's `$PBOPREFIX$` (`z\<prefix>\addons\<addon>`). Per-addon `README.md` files are optional and not required by the build.
 4. Add a `LICENSE.md` for your project.
