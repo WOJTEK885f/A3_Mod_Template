@@ -10,4 +10,4 @@ logoSmall = "logo_TMP_MOD_PREFIX_ca.paa";
 tooltip = "TMP_MOD_NAME";
 tooltipOwned = "TMP_MOD_NAME Owned";
 actionName = "GitHub";
-action = "https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO";
+action = "https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME";

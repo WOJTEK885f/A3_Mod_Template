@@ -2,21 +2,21 @@
 
 <h1 align="center">TMP_MOD_NAME</h1>
 <p align="center">
-    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/releases/latest">
+    <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/releases/latest">
         <img src="https://img.shields.io/badge/Version-0.0.0-blue?style=flat-square" alt="TMP_MOD_NAME Version">
     </a>
-    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/issues">
-        <img src="https://img.shields.io/github/issues-raw/TMP_MOD_REPO_OWNER/TMP_MOD_REPO.svg?style=flat-square&label=Issues" alt="TMP_MOD_NAME Issues">
+    <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/issues">
+        <img src="https://img.shields.io/github/issues-raw/TMP_REPO_OWNER/TMP_REPO_NAME.svg?style=flat-square&label=Issues" alt="TMP_MOD_NAME Issues">
     </a>
     <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=TMP_MOD_WORKSHOPID">
         <img src="https://img.shields.io/steam/downloads/TMP_MOD_WORKSHOPID.svg?style=flat-square&label=Downloads" alt="TMP_MOD_NAME Downloads">
     </a>
-    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/blob/master/LICENSE.md">
+    <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/blob/master/LICENSE.md">
         <img src="https://img.shields.io/badge/License-TMP_MOD_LICENSE-red?style=flat-square" alt="TMP_MOD_NAME License">
     </a>
     <br>
-    <img src="https://img.shields.io/github/actions/workflow/status/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/hemtt.yml?style=flat-square&label=HEMTT" alt="HEMTT check">
-    <img src="https://img.shields.io/github/actions/workflow/status/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/style-check.yml?style=flat-square&label=Validate" alt="Validate tools">
+    <img src="https://img.shields.io/github/actions/workflow/status/TMP_REPO_OWNER/TMP_REPO_NAME/hemtt.yml?style=flat-square&label=HEMTT" alt="HEMTT check">
+    <img src="https://img.shields.io/github/actions/workflow/status/TMP_REPO_OWNER/TMP_REPO_NAME/style-check.yml?style=flat-square&label=Validate" alt="Validate tools">
 </p>
 
 <p align="center">
