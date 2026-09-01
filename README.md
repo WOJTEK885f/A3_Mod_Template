@@ -1,28 +1,42 @@
-# TMP_MOD_TITLE
+<!-- markdownlint-disable MD033 -->
 
-**Version: 0.0.0**
+<h1 align="center">Freeman: Guerrilla Warfare Factions</h1>
+<p align="center">
+    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/releases/latest">
+        <img src="https://img.shields.io/badge/Version-0.0.0-blue?style=flat-square" alt="TMP_MOD_TITLE Version">
+    </a>
+    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/issues">
+        <img src="https://img.shields.io/github/issues-raw/TMP_MOD_REPO_OWNER/TMP_MOD_REPO.svg?style=flat-square&label=Issues" alt="TMP_MOD_TITLE Issues">
+    </a>
+    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=TMP_MOD_WORKSHOPID">
+        <img src="https://img.shields.io/steam/downloads/TMP_MOD_WORKSHOPID.svg?style=flat-square&label=Downloads" alt="TMP_MOD_TITLE Downloads">
+    </a>
+    <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/blob/master/LICENSE.md">
+        <img src="https://img.shields.io/badge/License-TMP_MOD_LICENSE-red?style=flat-square" alt="TMP_MOD_TITLE License">
+    </a>
+    <br>
+    <img src="https://img.shields.io/github/actions/workflow/status/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/hemtt.yml?style=flat-square&label=HEMTT" alt="HEMTT check">
+    <img src="https://img.shields.io/github/actions/workflow/status/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/style-check.yml?style=flat-square&label=Validate" alt="Validate tools">
+</p>
 
-<One-liner describing what your mod does.>
+<p align="center">
+    <b>Requires the latest version of <a href="https://github.com/CBATeam/CBA_A3/releases/latest">CBA A3</a></b>
+</p>
 
-## Features
+**TMP_MOD_TITLE** is ...
 
-- <Feature>
-- <Feature>
-- <Feature>
+## Key Features
 
-## Dependencies
+* **Feature:** Description
 
-- [CBA_A3](https://steamcommunity.com/sharedfiles/filedetails/?id=450814997)
-- <Other required mods, e.g. ACE3>
+## Documentation
 
-## Installation
+* [Example](./docs/README.md) - Summary
 
-<How to install the mod, e.g. subscribe on the Steam Workshop or place the release in your Arma 3 mod folder.>
+## Contributing
 
-## Usage
-
-<How to use the mod in-game.>
+For new contributors, see the [Contributing Setup & Guidelines](./.github/CONTRIBUTING.md).
 
 ## License
 
-TMP_MOD_LICENSE
+TMP_MOD_TITLE is licensed under [TMP_MOD_LICENSE](./LICENSE.md).
