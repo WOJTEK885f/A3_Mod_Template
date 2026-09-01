@@ -1,6 +1,6 @@
 <!-- markdownlint-disable MD033 -->
 
-<h1 align="center">Freeman: Guerrilla Warfare Factions</h1>
+<h1 align="center">TMP_MOD_TITLE</h1>
 <p align="center">
     <a href="https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO/releases/latest">
         <img src="https://img.shields.io/badge/Version-0.0.0-blue?style=flat-square" alt="TMP_MOD_TITLE Version">
