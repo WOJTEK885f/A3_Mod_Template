@@ -5,7 +5,7 @@
             <English>Main</English>
         </Key>
         <Key ID="STR_TMP_MOD_PREFIX_Main_Url">
-            <English>https://github.com/TMP_MOD_AUTHOR/TMP_MOD_REPO</English>
+            <English>https://github.com/TMP_MOD_REPO_OWNER/TMP_MOD_REPO</English>
         </Key>
     </Package>
 </Project>
