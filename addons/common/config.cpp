@@ -4,7 +4,7 @@ class CfgPatches {
     class ADDON {
         author = AUTHOR;
         authors[] = {"TMP_MOD_AUTHOR"};
-        url = ECSTRING(main,url);
+        url = ECSTRING(Main,Url);
         name = COMPONENT_NAME;
         requiredVersion = REQUIRED_VERSION;
         requiredAddons[] = {
