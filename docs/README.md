@@ -8,8 +8,8 @@
     <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/issues">
         <img src="https://img.shields.io/github/issues-raw/TMP_REPO_OWNER/TMP_REPO_NAME.svg?style=flat-square&label=Issues" alt="TMP_MOD_NAME Issues">
     </a>
-    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=TMP_MOD_WORKSHOPID">
-        <img src="https://img.shields.io/steam/downloads/TMP_MOD_WORKSHOPID.svg?style=flat-square&label=Downloads" alt="TMP_MOD_NAME Downloads">
+    <a href="https://steamcommunity.com/sharedfiles/filedetails/?id=TMP_MOD_ID">
+        <img src="https://img.shields.io/steam/downloads/TMP_MOD_ID.svg?style=flat-square&label=Downloads" alt="TMP_MOD_NAME Downloads">
     </a>
     <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/blob/master/LICENSE.md">
         <img src="https://img.shields.io/badge/License-TMP_MOD_LICENSE-red?style=flat-square" alt="TMP_MOD_NAME License">
