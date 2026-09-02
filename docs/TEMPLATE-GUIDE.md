@@ -1,9 +1,12 @@
 # A3_Mod_Template by WOJTEK885
 
-This guide is for mod developers who build a mod from this template.
-\- Target mod README template can be found in [`docs/README.md`](./docs/README.md)
+This guide is for mod developers who build a mod from this template. It explains setup, structure and tooling provided. This file is not part of the released mod.
 
-* After initial setup, root [`README.md`](./README.md) file should be replaced with [`docs/README.md`](./docs/README.md).
+* Target mod README template can be found in [`docs/README.md`](./docs/README.md)
+
+After initial setup:
+
+* Root [`README.md`](./README.md) file should be replaced with [`docs/README.md`](./docs/README.md) (this is also done automatically after release).
 * Content of the file you're reading now can be later found in [`docs/TEMPLATE-GUIDE.md`](docs/TEMPLATE-GUIDE.md) or deleted if not needed.
 
 ## Initial Project Setup
