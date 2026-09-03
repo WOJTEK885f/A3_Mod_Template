@@ -1,6 +1,6 @@
 # A3_Mod_Template by WOJTEK885
 
-Arma 3 mod project template using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3). Includes basic configuration, automation scripts, additional utilities and other QoL features. Made with the [ACE3 Coding Guidelines](https://ace3.acemod.org/wiki/development/) in mind and general good practices to make your modding life easier.
+Arma 3 mod project template using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3). Includes basic configuration, automation scripts, additional utilities and other QoL features. Made with the [ACE3 Coding Guidelines](https://ace3.acemod.org/wiki/development/) in mind to make your modding life easier.
 
 For HEMTT installation and configuration please refer to [The HEMTT Book](https://hemtt.dev/index.html).
 
