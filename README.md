@@ -1,6 +1,6 @@
 # A3_Mod_Template by WOJTEK885
 
-Arma 3 mod project template using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3). Includes basic configuration, automation scripts, additional utilities and other tools. Made with the [ACE3 Coding Guidelines](https://ace3.acemod.org/wiki/development/) in mind and general good practices to make your modding life easier.
+Arma 3 mod project template using [HEMTT](https://hemtt.dev/) and [CBA_A3](https://github.com/CBATeam/CBA_A3). Includes basic configuration, automation scripts, additional utilities and other QoL features. Made with the [ACE3 Coding Guidelines](https://ace3.acemod.org/wiki/development/) in mind and general good practices to make your modding life easier.
 
 For HEMTT installation and configuration please refer to [The HEMTT Book](https://hemtt.dev/index.html).
 
@@ -56,7 +56,10 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 
 ## License
 
-- The template's original files are licensed under the **MIT** license - see the repo root `LICENSE.md`.
-- `tools/config_style_checker.py` and `tools/stringtable_validator.py` are derived from the ACE project and remain under the **GPLv2** license; they are not covered by the MIT license.
+- The template's original files are licensed under the **MIT** license - see the repo root [`LICENSE.md`](./LICENSE.md).
+- `tools/config_style_checker.py` and `tools/stringtable_validator.py` are derived from the ACE project and remain under the **GPLv2** license; they are not covered by the MIT license - see [`THIRD-PARTY-NOTICES.md`](./THIRD-PARTY-NOTICES.md).
 
-> When building a mod from this template, replace the `TMP_MOD_LICENSE` placeholder and the licence file with your own mod's license (for example `APL`/`APL-SA`/`APL-ND`). MIT means you can do what you want and your addon content is licensed however you choose.
+When building a mod from this template, replace the `TMP_MOD_LICENSE` placeholder and the license file with your own mod's license. MIT means you can do whatever you want and your addon content is licensed however you choose.
+
+> [!TIP]
+> Not sure which license to pick? You can use one of the official Arma Public Licenses (for example `APL`/`APL-SA`/`APL-ND`). You can read their full terms on the [Bohemia Interactive Licenses](https://www.bohemia.net/community/licenses) page.
