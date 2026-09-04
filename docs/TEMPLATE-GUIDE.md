@@ -65,7 +65,6 @@ python tools/release.py
 | *(default)*      | Bumps the minor version, resets patch.              |
 | `--patch`        | Bumps just the patch number.                        |
 | `--skip-bump`    | Makes a release with no version bump.               |
-| `--skip-release` | Bumps the version and validates, but skips the release build. |
 
 A post-release hook renames the output archive to `<name>_v<version>.zip` (e.g. `TMP_MOD_NAME_v0.0.0.zip`) to be used in GitHub release assets.
 

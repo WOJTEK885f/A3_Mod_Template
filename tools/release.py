@@ -4,7 +4,7 @@ Author: WOJTEK885
 
 Creates a release by orchestrating the HEMTT toolchain. By default bumps the
 minor version and resets the patch number. Flags allow bumping the major or
-patch numbers instead, or skipping the bump / the release entirely.
+patch numbers instead, or skipping the bump.
 """
 
 import argparse
@@ -46,11 +46,8 @@ class ReleaseTool:
         result = self._run([sys.executable, str(script)])
         return result.returncode
 
-    def release(self, skip: bool) -> bool:
+    def release(self) -> bool:
         """Run the HEMTT release build."""
-        if skip:
-            logger.warning("Skipping release build (--skip-release)")
-            return True
         logger.info("Running hemtt release")
         result = self._run(["hemtt", "release"])
         return result.returncode == 0
@@ -72,11 +69,6 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
         "--skip-bump",
         action="store_true",
         help="Do not bump the version.",
-    )
-    parser.add_argument(
-        "--skip-release",
-        action="store_true",
-        help="Do not run the HEMTT release build.",
     )
     return parser.parse_args(argv)
 
@@ -103,7 +95,7 @@ def main(argv: list[str] | None = None) -> int:
         logger.error("Config validation FAILED; fix the errors and try again.")
         return 1
 
-    if not tool.release(args.skip_release):
+    if not tool.release():
         logger.error("HEMTT release failed.")
         return 1
 
