@@ -24,8 +24,7 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 | `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
 | `TMP_MOD_ID`      | Steam Workshop ID | after the initial upload   | 1234567890                  |
 
-> [!NOTE]
-> `TMP_VERSION` is used internally by build scripts and should not be replaced manually.
+> You may also find `TMP_VERSION` - it's used by hook scripts and should not be replaced manually.
 
 2. Add a logo file named `logo_TMP_MOD_PREFIX_ca.paa` (referenced in `./mod.cpp`).
 3. Add a `LICENSE.md` for your project, replacing the template's license.
@@ -38,25 +37,37 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 > [!IMPORTANT]
 > Remember that `docs/README.md` is treated as the source-of-truth and overwrites the root `README.md` after every release.
 
-## Project Structure
+## Tools & Automation
 
+`tools/` contains Python helpers used by the project and CI:
+
+- `config_style_checker.py` - validates `.cpp/.hpp/.rvmat/.cfg` style (tabs, brackets, class formatting).
+- `stringtable_validator.py` - validates `stringtable.xml` structure and style.
+- `release.py` - orchestrates a release (version bump, validation, release).
+- `logger.py` - shared logging and project-prefix helpers used by the other tools.
+
+### Versioning
+
+Current version is stored in `addons/main/script_version.hpp`. You can use `release.py` to bump it automatically (see `Releases` section).
+
+The version is stamped into the root `README.md` and `mod.cpp` on every build, and the README itself is copied from `docs/` on every release. This means the root `README.md` reflects the latest released version while `docs/README.md` remains the maintained copy.
+
+### Releases
+
+When working using this template, don't manuall y run `hemtt release`, instead use:
+```bash
+python tools/release.py
 ```
-.
-├── .github/         # GitHub config and CI/CD workflows
-├── .hemtt/          # HEMTT configuration
-│   ├── project.toml
-│   ├── lints.toml
-│   ├── launch.toml     # Launch mods are configured here (includes some suggested mods and presets)
-│   ├── hooks/          # Automated scripts on build / release
-│   └── scripts/        # Version bump scripts used by tools
-├── addons/          # Your addons (one folder per PBO)
-│   ├── common/         # Add shared assets, scripts and other content here
-│   └── main/           # Main addon with some utility macros
-├── docs/            # Add your mod documentation here
-├── tools/           # Python tooling for lints and other automation
-├── mod.cpp          # Mod metadata seen by the game
-└── README.md        # Version-stamped mirror of docs/README.md
-```
+
+| Flag             | Description                                         |
+| ---------------- | --------------------------------------------------- |
+| `--major`        | Bumps the major version, resets minor and patch.    |
+| *(default)*      | Bumps the minor version, resets patch.              |
+| `--patch`        | Bumps just the patch number.                        |
+| `--skip-bump`    | Makes a release with no version bump.               |
+| `--skip-release` | Bumps the version and validates, but skips the release build. |
+
+A post-release hook renames the output archive to `<name>_v<version>.zip` (e.g. `TMP_MOD_NAME_v0.0.0.zip`) to be used in GitHub release assets.
 
 ## License
 
@@ -64,6 +75,3 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 - `tools/config_style_checker.py` and `tools/stringtable_validator.py` are derived from the ACE project and remain under the **GPLv2** license; they are not covered by the MIT license - see [`THIRD-PARTY-NOTICES.md`](./THIRD-PARTY-NOTICES.md).
 
 When building a mod from this template, replace the `TMP_MOD_LICENSE` placeholder and the license file with your own mod's license. MIT means you can do whatever you want and your addon content is licensed however you choose.
-
-> [!TIP]
-> Not sure which license to pick? You can use one of the official Arma Public Licenses (for example `APL`/`APL-SA`/`APL-ND`). You can read their full terms on the [Bohemia Interactive Licenses](https://www.bohemia.net/community/licenses) page.
