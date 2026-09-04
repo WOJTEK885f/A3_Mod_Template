@@ -1,7 +1,7 @@
 let modcpp = HEMTT_VFS.join("mod.cpp")
     .open_file()
     .read();
-modcpp.replace("0.0.0",
+modcpp.replace("TMP_VERSION",
     HEMTT.project()
     .version()
     .to_string_short()
@@ -15,7 +15,7 @@ print("mod.cpp version set to " + HEMTT.project().version());
 let readme = HEMTT_VFS.join("README.md")
     .open_file()
     .read();
-readme.replace("0.0.0",
+readme.replace("TMP_VERSION",
     HEMTT.project()
     .version()
     .to_string_short()

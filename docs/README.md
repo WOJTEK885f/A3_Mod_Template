@@ -3,7 +3,7 @@
 <h1 align="center">TMP_MOD_NAME</h1>
 <p align="center">
     <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/releases/latest">
-        <img src="https://img.shields.io/badge/Version-0.0.0-blue?style=flat-square" alt="TMP_MOD_NAME Version">
+        <img src="https://img.shields.io/badge/Version-TMP_VERSION-blue?style=flat-square" alt="TMP_MOD_NAME Version">
     </a>
     <a href="https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/issues">
         <img src="https://img.shields.io/github/issues-raw/TMP_REPO_OWNER/TMP_REPO_NAME.svg?style=flat-square&label=Issues" alt="TMP_MOD_NAME Issues">
@@ -23,7 +23,7 @@
     <b>Requires the latest version of <a href="https://github.com/CBATeam/CBA_A3/releases/latest">CBA A3</a></b>
 </p>
 
-**TMP_MOD_NAME** is ...
+**TMP_MOD_NAME** (TMP_MOD_ACRONYM) is ...
 
 ## Key Features
 

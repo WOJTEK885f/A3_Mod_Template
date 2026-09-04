@@ -16,12 +16,16 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 | Placeholder       | Replace with      | Comments                   | Example                     |
 | ----------------- | ----------------- | -------------------------- | --------------------------- |
 | `TMP_MOD_NAME`    | Mod's full name   |                            | Advanced Banana Environment |
+| `TMP_MOD_ACRONYM` | Mod's acronym     | all uppercase              | ABE                         |
 | `TMP_MOD_AUTHOR`  | Mod's author      | that's you or your team    | ABE Team                    |
 | `TMP_REPO_OWNER`  | GitHub repo owner |                            | ABE-Organization            |
 | `TMP_REPO_NAME`   | GitHub repo name  | no spaces, use _ or - or . | ABE3                        |
 | `TMP_MOD_PREFIX`  | Mod's prefix      | all lowercase              | abe                         |
 | `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
 | `TMP_MOD_ID`      | Steam Workshop ID | after the initial upload   | 1234567890                  |
+
+> [!NOTE]
+> `TMP_VERSION` is used internally by build scripts and should not be replaced manually.
 
 2. Add a logo file named `logo_TMP_MOD_PREFIX_ca.paa` (referenced in `./mod.cpp`).
 3. Add a `LICENSE.md` for your project, replacing the template's license.

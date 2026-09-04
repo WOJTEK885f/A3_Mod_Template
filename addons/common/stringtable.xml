@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project name="TMP_MOD_PREFIX">
+<Project name="TMP_MOD_ACRONYM">
     <Package name="Common">
-        <Key ID="STR_TMP_MOD_PREFIX_Common_DisplayName">
+        <Key ID="STR_TMP_MOD_ACRONYM_Common_DisplayName">
             <English>Common</English>
         </Key>
     </Package>
