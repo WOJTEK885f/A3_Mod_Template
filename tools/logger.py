@@ -3,8 +3,7 @@
 Author: WOJTEK885
 
 Provides a colored console logger and a small ProjectConfig reader so that
-tooling can discover project metadata (name, prefix) from .hemtt/project.toml
-without being hardcoded to a specific mod.
+tooling can discover project metadata (name, prefix) from .hemtt/project.toml.
 """
 
 import logging
@@ -46,7 +45,7 @@ logger = setup_logger()
 
 
 class LogLevel(IntEnum):
-    """Log levels compatible with the logging module (compat for ACE3 tools)."""
+    """Log levels compatible with the logging module."""
 
     INFO = logging.INFO
     WARN = logging.WARNING
