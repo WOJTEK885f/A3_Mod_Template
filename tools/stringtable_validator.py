@@ -3,8 +3,8 @@
 STRINGTABLE VALIDATOR
 Author: mharis001
 Modified by: WOJTEK885
-  - Reads the project prefix from .hemtt/project.toml instead of being
-    hardcoded to a specific mod.
+  - Reads the project acronym (derived from the prefix) from
+    .hemtt/project.toml instead of being hardcoded to a specific mod.
   - Removed the leftover ACE-specific STR_ACE_ key skip.
 Description:
   Verifies all stringtable.xml files in the project. Checks for:
@@ -21,10 +21,10 @@ import fnmatch
 import os
 import sys
 import xml.etree.ElementTree as ET
-from logger import get_prefix
+from logger import get_acronym
 
 
-def check_stringtable(filepath, project_name):
+def check_stringtable(filepath, project_acronym):
     try:
         tree = ET.parse(filepath)
     except Exception as e:
@@ -33,15 +33,15 @@ def check_stringtable(filepath, project_name):
 
     errors = 0
 
-    # Verify that the root tag is Project and its name attribute is the project name
+    # Verify that the root tag is Project and its name attribute is the project acronym
     root = tree.getroot()
 
     if root.tag != "Project":
         print("  ERROR: Invalid root tag '{}' found, must be 'Project'.".format(root.tag))
         errors += 1
 
-    if root.get("name") != project_name:
-        print("  ERROR: Invalid name attribute '{}' for Project tag, must be '{}'.".format(root.get("name"), project_name))
+    if root.get("name") != project_acronym:
+        print("  ERROR: Invalid name attribute '{}' for Project tag, must be '{}'.".format(root.get("name"), project_acronym))
         errors += 1
 
     # Verify that the root has a Package tag and its name attribute matches the component's folder name
@@ -68,7 +68,7 @@ def check_stringtable(filepath, project_name):
             keys.extend(container.findall("Key"))
 
         key_ids = []
-        key_prefix = "STR_{}_{}_".format(project_name, package_name)
+        key_prefix = "STR_{}_{}_".format(project_acronym, package_name)
 
         for key in keys:
             key_id = key.get("ID")
@@ -149,7 +149,7 @@ def main():
     print("Validating Stringtables")
     print("-----------------------")
 
-    project_name = get_prefix()
+    project_acronym = get_acronym()
 
     # Allow running from root directory and tools directory
     root_dir = ".."
@@ -170,7 +170,7 @@ def main():
     for filepath in stringtable_files:
         print("Checking {}:".format(os.path.relpath(filepath, root_dir)))
 
-        errors = check_stringtable(filepath, project_name)
+        errors = check_stringtable(filepath, project_acronym)
 
         if errors != 0:
             print("Found {} error(s).".format(errors))

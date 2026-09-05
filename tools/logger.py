@@ -90,6 +90,11 @@ class ProjectConfig:
             author=data.get("author", ""),
         )
 
+    @property
+    def acronym(self) -> str:
+        """Acronym (uppercase of the prefix)"""
+        return self.prefix.upper()
+
 
 def _config() -> ProjectConfig:
     cached = getattr(_config, "_cached", None)
@@ -112,6 +117,11 @@ def project_root() -> str:
 def get_prefix() -> str:
     """Read the main prefix from .hemtt/project.toml."""
     return _config().prefix
+
+
+def get_acronym() -> str:
+    """Read the main acronym (uppercase of the prefix) from .hemtt/project.toml."""
+    return _config().acronym
 
 
 def get_project_name() -> str:

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project name="TMP_MOD_ACRONYM">
     <Package name="Main">
-        <Key ID="STR_TMP_MOD_PREFIX_Main_DisplayName">
+        <Key ID="STR_TMP_MOD_ACRONYM_Main_DisplayName">
             <English>Main</English>
         </Key>
-        <Key ID="STR_TMP_MOD_PREFIX_Main_Url">
+        <Key ID="STR_TMP_MOD_ACRONYM_Main_Url">
             <English>https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME</English>
         </Key>
     </Package>

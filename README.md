@@ -17,10 +17,10 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 | ----------------- | ----------------- | -------------------------- | --------------------------- |
 | `TMP_MOD_NAME`    | Mod's full name   |                            | Advanced Banana Environment |
 | `TMP_MOD_ACRONYM` | Mod's acronym     | all uppercase              | ABE                         |
+| `TMP_MOD_PREFIX`  | Mod's prefix      | acronym, but lowercase     | abe                         |
 | `TMP_MOD_AUTHOR`  | Mod's author      | that's you or your team    | ABE Team                    |
 | `TMP_REPO_OWNER`  | GitHub repo owner |                            | ABE-Organization            |
 | `TMP_REPO_NAME`   | GitHub repo name  | no spaces, use _ or - or . | ABE3                        |
-| `TMP_MOD_PREFIX`  | Mod's prefix      | all lowercase              | abe                         |
 | `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
 | `TMP_MOD_ID`      | Steam Workshop ID | after the initial upload   | 1234567890                  |
 
