@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: TMP_MOD_NAME Discussions
+    url: https://github.com/TMP_REPO_OWNER/TMP_REPO_NAME/discussions
+    about: Ask questions and discuss ideas here

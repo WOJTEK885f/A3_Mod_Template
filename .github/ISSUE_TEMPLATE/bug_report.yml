@@ -1,0 +1,99 @@
+name: Bug report
+description: File a bug report to help us improve TMP_MOD_NAME
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report! Please provide as much detail as possible so we can investigate and fix the issue.
+
+  - type: input
+    id: arma-version
+    attributes:
+      label: Arma 3 version
+      description: Which version of Arma 3 are you running? (e.g. 2.14 stable / rc / dev)
+      placeholder: "2.14 stable"
+    validations:
+      required: true
+
+  - type: input
+    id: cba-version
+    attributes:
+      label: CBA version
+      description: Which version of CBA_A3 are you running? (e.g. 3.17.1 stable / dev + commit hash)
+      placeholder: "3.17.1"
+    validations:
+      required: false
+
+  - type: input
+    id: mod-version
+    attributes:
+      label: TMP_MOD_NAME version
+      description: Which version of TMP_MOD_NAME are you running? (e.g. 1.0.0 stable / dev + commit hash)
+      placeholder: "1.0.0"
+    validations:
+      required: true
+
+  - type: textarea
+    id: mods
+    attributes:
+      label: Mods
+      description: List the mods you are running, especially any that might interact with TMP_MOD_NAME.
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear and concise description of the bug.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to reproduce
+      description: Steps needed to reproduce the behavior.
+      placeholder: |
+        1. Go to '...'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See error
+    validations:
+      required: true
+
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where did the issue occur?
+      options:
+        - Dedicated Server
+        - Self-Hosted Multiplayer
+        - Singleplayer
+        - Editor (Singleplayer)
+        - Editor (Multiplayer)
+        - Virtual Arsenal
+        - Menu
+    validations:
+      required: true
+
+  - type: textarea
+    id: rpt
+    attributes:
+      label: RPT log file
+      description: |
+        Add a link ([gist](https://gist.github.com) or [pastebin](http://pastebin.com)) to the client and/or server RPT file.
+        Instructions for finding your RPT files can be found [here](https://community.bistudio.com/wiki/Crash_Files#Arma_3).
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Any additional information, screenshots, or videos that might help us solve the issue.
+    validations:
+      required: false

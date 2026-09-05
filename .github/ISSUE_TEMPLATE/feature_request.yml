@@ -1,0 +1,42 @@
+name: Feature request
+description: Suggest a feature for TMP_MOD_NAME
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to suggest a new feature! Before submitting, please search the existing issues to make sure it hasn't already been requested.
+
+  - type: textarea
+    id: feature
+    attributes:
+      label: Feature description
+      description: A clear and concise description of the feature you would like to see added.
+      placeholder: "Describe the feature and what it should do..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivation
+    attributes:
+      label: Problem it solves
+      description: What problem does this feature solve, or why do you need it?
+    validations:
+      required: false
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Possible alternatives
+      description: Any alternative solutions or features you have considered.
+    validations:
+      required: false
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Any additional information, mockups, or examples to help understand the request.
+    validations:
+      required: false
