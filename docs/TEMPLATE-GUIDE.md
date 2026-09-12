@@ -13,26 +13,26 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 
 1. Find and replace every occurrence of the following: (Ctrl+Shift+F in VSCode)
 
-| Placeholder       | Replace with      | Comments                   | Example                     |
-| ----------------- | ----------------- | -------------------------- | --------------------------- |
-| `TMP_MOD_NAME`    | Mod's full name   |                            | Advanced Banana Environment |
-| `TMP_MOD_ACRONYM` | Mod's acronym     | all uppercase              | ABE                         |
-| `TMP_MOD_PREFIX`  | Mod's prefix      | acronym, but lowercase     | abe                         |
-| `TMP_MOD_AUTHOR`  | Mod's author      | that's you or your team    | ABE Team                    |
-| `TMP_REPO_OWNER`  | GitHub repo owner |                            | ABE-Organization            |
-| `TMP_REPO_NAME`   | GitHub repo name  | no spaces, use _ or - or . | ABE3                        |
-| `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
-| `TMP_MOD_ID`      | Steam Workshop ID | after the initial upload   | 1234567890                  |
+    | Placeholder       | Replace with      | Comments                   | Example                     |
+    | ----------------- | ----------------- | -------------------------- | --------------------------- |
+    | `TMP_MOD_NAME`    | Mod's full name   |                            | Advanced Banana Environment |
+    | `TMP_MOD_ACRONYM` | Mod's acronym     | all uppercase              | ABE                         |
+    | `TMP_MOD_PREFIX`  | Mod's prefix      | acronym, but lowercase     | abe                         |
+    | `TMP_MOD_AUTHOR`  | Mod's author      | that's you or your team    | ABE Team                    |
+    | `TMP_REPO_OWNER`  | GitHub repo owner |                            | ABE-Organization            |
+    | `TMP_REPO_NAME`   | GitHub repo name  | no spaces, use _ or - or . | ABE3                        |
+    | `TMP_MOD_LICENSE` | Chosen license    |                            | APL-ND                      |
+    | `TMP_MOD_ID`      | Steam Workshop ID | after the initial upload   | 1234567890                  |
 
-> You may also find `TMP_VERSION` - it's used by hook scripts and should not be replaced manually.
+    > You may also find `TMP_VERSION` - it's used by hook scripts and should not be replaced manually.
 
 2. Add a logo file named `logo_TMP_MOD_PREFIX_ca.paa` (referenced in `./mod.cpp`).
 3. Add a `LICENSE.md` for your project, replacing the template's license.
 
-### After the initial setup:
+### After the initial setup
 
-* Root [`README.md`](./README.md) file should be replaced with [`docs/README.md`](./docs/README.md).
-* Content of the guide you're reading now can be later found in [`docs/TEMPLATE-GUIDE.md`](docs/TEMPLATE-GUIDE.md) or deleted if not needed.
+- Root [`README.md`](./README.md) file should be replaced with [`docs/README.md`](./docs/README.md).
+- Content of the guide you're reading now can be later found in [`docs/TEMPLATE-GUIDE.md`](docs/TEMPLATE-GUIDE.md) or deleted if not needed.
 
 > [!IMPORTANT]
 > Remember that `docs/README.md` is treated as the source-of-truth and overwrites the root `README.md` after every release.
@@ -55,6 +55,7 @@ The version is stamped into the root `README.md` and `mod.cpp` on every build, a
 ### Releases
 
 When working using this template, don't manuall y run `hemtt release`, instead use:
+
 ```bash
 python tools/release.py
 ```
