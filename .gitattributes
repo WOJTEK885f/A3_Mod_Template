@@ -11,7 +11,6 @@
 # Change GitHub language categorization
 addons/**/*.cpp linguist-language=SQF
 addons/**/*.hpp linguist-language=SQF
-*.rhai text diff=rust linguist-language=rust
 
 # Do not count HEMTT includes in GitHub language statistics
 include/** linguist-vendored
