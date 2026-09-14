@@ -1,5 +1,6 @@
 {
     "SQF Function Header": {
+        "scope": "sqf",
         "description": "SQF function header",
         "prefix": "header",
         "body": [
@@ -24,6 +25,7 @@
         ],
     },
     "SQF Function Header Argument": {
+        "scope": "sqf",
         "description": "SQF function header argument",
         "prefix": "header_argument",
         "body": [
@@ -31,6 +33,7 @@
         ],
     },
     "SQF Function Header Return Value": {
+        "scope": "sqf",
         "description": "SQF function header return value",
         "prefix": "header_return",
         "body": [
