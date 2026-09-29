@@ -1,5 +1,7 @@
 let releases = HEMTT_RFS.join("releases");
-let src = releases.join(HEMTT.project().prefix() + "-latest.zip");
+let src = releases.join(
+    HEMTT.project().prefix() + "-" + HEMTT.project().version().to_string() + ".zip"
+);
 
 // Build a Windows-safe file name from the project root folder name.
 // Drop characters Windows forbids (< > : " / \ | ? *) and control characters.
