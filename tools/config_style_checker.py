@@ -17,6 +17,7 @@ import fnmatch
 import os
 import re
 import sys
+import fs_naming
 import logger
 
 
@@ -169,6 +170,38 @@ def check_config_style(filepath):
     return bad_count_file
 
 
+def check_release_names():
+    """Validate that the release folder and prefix are Windows-safe.
+
+    HEMTT copies these verbatim into archive entry names, so illegal characters
+    would produce a zip that cannot be extracted on Windows. Returns the number
+    of errors found.
+    """
+    try:
+        config = logger.ProjectConfig.discover()
+    except FileNotFoundError as exc:
+        logger.log(logger.LogLevel.ERROR, str(exc))
+        return 1
+
+    errors = 0
+
+    folder = config.release_folder
+    if folder is not None and not fs_naming.is_safe_windows_name(folder):
+        logger.log(
+            logger.LogLevel.ERROR,
+            "[hemtt.release] folder '{0}' is not Windows-safe; suggested: '{1}'".format(
+                folder, fs_naming.sanitize_windows_name(folder)))
+        errors += 1
+
+    if not fs_naming.is_safe_windows_name(config.prefix):
+        logger.log(
+            logger.LogLevel.ERROR,
+            "Project prefix '{0}' is not Windows-safe".format(config.prefix))
+        errors += 1
+
+    return errors
+
+
 def main():
     logger.log(logger.LogLevel.INFO, "Validating config style")
 
@@ -193,6 +226,8 @@ def main():
 
     for filename in sqf_list:
         bad_count = bad_count + check_config_style(filename)
+
+    bad_count = bad_count + check_release_names()
 
     logger.log(logger.LogLevel.INFO,
                f"Checked {len(sqf_list)} files, errors detected: {bad_count}")

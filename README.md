@@ -44,6 +44,7 @@ For HEMTT installation and configuration please refer to [The HEMTT Book](https:
 - `config_style_checker.py` - validates `.cpp/.hpp/.rvmat/.cfg` style (tabs, brackets, class formatting).
 - `stringtable_validator.py` - validates `stringtable.xml` structure and style.
 - `release.py` - orchestrates a release (version bump, validation, release).
+- `fs_naming.py` - keeps the release archive's `@` folder name Windows-safe (auto-fixes `[hemtt.release] folder`).
 - `logger.py` - shared logging and project-prefix helpers used by the other tools.
 
 ### Versioning

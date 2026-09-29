@@ -60,6 +60,7 @@ class ProjectConfig:
     prefix: str
     root: Path
     author: str
+    release_folder: str | None = None
 
     @classmethod
     def discover(cls, start: Path | None = None) -> "ProjectConfig":
@@ -88,6 +89,7 @@ class ProjectConfig:
             prefix=data["prefix"],
             root=project_file.parent.parent,
             author=data.get("author", ""),
+            release_folder=data.get("hemtt", {}).get("release", {}).get("folder"),
         )
 
     @property

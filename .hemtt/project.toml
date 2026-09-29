@@ -18,5 +18,8 @@ include = [
 ]
 exclude = []
 
+[hemtt.release]
+folder = "TMP_MOD_NAME"
+
 [properties]
 author = "TMP_MOD_AUTHOR"

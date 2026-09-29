@@ -1,11 +1,11 @@
 let releases = HEMTT_RFS.join("releases");
 let src = releases.join(HEMTT.project().prefix() + "-latest.zip");
 
-// Build a Windows-safe file name from the project name.
+// Build a Windows-safe file name from the project root folder name.
 // Drop characters Windows forbids (< > : " / \ | ? *) and control characters.
 let forbidden = "<>:\"/\\|?*";
 let name = "";
-for ch in HEMTT.project().name().chars() {
+for ch in HEMTT_RFS.file_name().chars() {
     if ch >= ' ' && !forbidden.contains(ch) {
         name += ch;
     }
